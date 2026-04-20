@@ -1,21 +1,29 @@
 # Atlas
 
-Atlas is the **full application** (backend + frontend) built on top of the local MCP tool `visualize_trip`.
+Atlas is the **full-stack app** (FastAPI backend + React/Vite frontend) for the GlobalTravel trip planner.
 
-If you **only want the MCP server** to plug into Claude Desktop / Cursor / other MCP clients, use:
+If you only want the **standalone MCP server** (for Claude Desktop / Cursor / any MCP client), use:
 
 - `https://github.com/Aditii2112/globaltravel-mcp-server`
 
-## Repo layout
+## What’s inside
 
-- `api_server.py`: FastAPI backend (talks to Ollama + calls the local MCP tool)
-- `server.py`: local MCP tool server (`visualize_trip`)
-- `frontend/`: React + Vite UI
-- `chatbot.py`: optional Streamlit demo UI
+- **Backend**: `api_server.py` (FastAPI)
+  - Calls **Ollama** for LLM responses
+  - Calls the **local MCP tool** `visualize_trip` by running `server.py` over stdio
+- **MCP tool server**: `server.py`
+- **Frontend**: `frontend/` (React + Vite)
 
-## Setup
+## Prerequisites
 
-### Backend
+- Python 3.10+ (recommended)
+- Node 18+ (recommended)
+- Ollama running locally (default: `http://localhost:11434`)
+- A Google Maps API key (Directions + Static Maps + Geocoding)
+
+## Run locally
+
+### 1) Backend
 
 ```bash
 python3 -m venv .venv
@@ -24,19 +32,23 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Set in `.env`:
+Update `.env`:
 
 - `GOOGLE_MAPS_API_KEY=...`
-- `OLLAMA_URL=http://localhost:11434/api/chat` (default)
-- `OLLAMA_MODEL=gemma4` (default)
+- `OLLAMA_URL=http://localhost:11434/api/chat`
+- `OLLAMA_MODEL=gemma4`
 
-Run:
+Start the API:
 
 ```bash
-uvicorn api_server:app --reload --port 8000
+uvicorn api_server:app --reload --host 127.0.0.1 --port 8000
 ```
 
-### Frontend
+Quick check:
+
+- `GET http://localhost:8000/api/health`
+
+### 2) Frontend
 
 ```bash
 cd frontend
@@ -44,11 +56,8 @@ npm install
 npm run dev
 ```
 
-The frontend should call the backend at `http://localhost:8000`.
+Open the UI (Vite default):
 
-## MCP server reference
+- `http://localhost:5173`
 
-This repo includes `server.py` so the app works out-of-the-box. If you want a standalone MCP server repo (for Claude Desktop etc.), see:
-
-- `https://github.com/Aditii2112/globaltravel-mcp-server`
 
