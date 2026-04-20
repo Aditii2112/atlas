@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --color-cream-50: #faf8f5;
+  --color-cream-100: #f7f4ef;
+  --color-cream-200: #ebe6dc;
+  --color-chocolate-900: #2a1a0e;
+  --color-chocolate-800: #3d2914;
+  --color-chocolate-700: #5c4033;
+  --color-gold-500: #c9a227;
+  --color-gold-400: #d4b84a;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--color-cream-100);
+  color: var(--color-chocolate-800);
+  font-family: var(--font-sans);
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(212, 184, 74, 0.35);
+}
+
+/* Markdown inside assistant bubbles */
+.prose-mcp a {
+  color: var(--color-chocolate-700);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-mcp h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0.35rem;
+  color: var(--color-chocolate-900);
+}
+
+.prose-mcp h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.prose-mcp p {
+  margin: 0.35rem 0;
+  line-height: 1.55;
+}
+
+.prose-mcp ul {
+  margin: 0.35rem 0;
+  padding-left: 1.2rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(61, 41, 20, 0.2);
+  border-radius: 999px;
+}
+
+/* Floating orb animations */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-15px, 15px) scale(0.97); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-25px, 20px) scale(1.08); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(15px, -10px) scale(1.03); }
+  75% { transform: translate(-10px, 12px) scale(0.98); }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 9s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 7s ease-in-out infinite;
+}
+
+/* Chat message animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.35s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out both;
+}
+
+/* Typing dots */
+@keyframes bounce-dot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+
+.animate-bounce-dot {
+  animation: bounce-dot 1.2s ease-in-out infinite;
+}
